@@ -1,4 +1,4 @@
-import os
+import os, csv
 validacion_salida = False
 
 def limpiar_pantalla():
@@ -12,29 +12,22 @@ def limpiar_pantalla():
         # Sistemas Windows
         os.system('cls')
 
-while validacion_salida == False:
-    limpiar_pantalla()
-    print("Bienvenido a la gestión de calificaciones")
-    print("Elija la opción a realizar: ")
-    print("1-) Leer calificaciones")
-    print("2-) Calcular nota final")
-    print("3-) Clasificar alumnos")
-    print("4-) Salir del programa")
-    try:
-       opcion = int(input(">>> "))
-       match opcion:
-        case 1:
-            pass
-        case 2:
-            pass
-        case 3:
-            pass
-        case 4:
-            print("Hasta pronto...")
-            validacion_salida = True
-        case _:
-            print("Opción no válida")
-            input("Presione ENTER para continuar")
-    except ValueError:
-        print("Ingrese una opción númerica")
-        input("Presione ENTER para continuar")
+def leer_calificaciones():
+    datos = []
+    with open('calificaciones.csv', newline='', encoding='utf-8') as archivo_csv:
+        archivo = csv.DictReader(archivo_csv, delimiter=';')
+        for fila in archivo:
+            datos.append = {
+                'Apellidos': str(fila['Apellidos']),
+                'Nombre': str(fila['Nombre']),
+                'Asistencia': str(fila['Asistencia'].replace('%','')),
+                'Parcial1': float(fila['Parcial1'].replace(',','.')),
+                'Parcial2': float(fila['Parcial2'].replace(',','.')),
+                'Ordinario1': float(fila['Ordinario1'].replace(',','.')),
+                'Ordinario2': float(fila['Ordinario2'].replace(',','.')),
+                'Practicas': float(fila['Practicas'].replace(',','.')),
+                'OrdinarioPracticas': float(fila['OrdinarioPracticas'].replace(',','.'))
+            }
+    input("Presione ENTER para continuar")
+    return datos
+
